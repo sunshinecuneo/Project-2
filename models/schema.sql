@@ -1,0 +1,4 @@
+DROP DATABASE IF EXISTS pbstats_db;
+CREATE DATABASE pbstats_db;
+
+
