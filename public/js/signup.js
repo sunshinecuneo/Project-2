@@ -28,7 +28,13 @@ $(document).ready(function() {
       email: email,
       password: password
     }).then(function(data) {
-      window.location.replace(data);
+      console.log(data)
+      if(data.errors.length > 0){
+        $('#errorModal').modal('toggle')
+        $('.modal-body p').text(data.errors[0].message)
+      }
+
+      // window.location.replace(data);
       // If there's an error, handle it by throwing up a boostrap alert
     }).catch(handleLoginErr);
   }
