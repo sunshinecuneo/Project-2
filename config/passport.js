@@ -36,8 +36,8 @@ passport.use(new LocalStrategy(
       // If none of the above, return the user
       else{
         console.log("in else, correct user info");
-        
-        return done(null, dbUser);
+        console.log("data Values", dbUser.dataValues);
+        return done(null, dbUser.dataValues);
       }
     });
   }

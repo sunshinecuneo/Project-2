@@ -4,6 +4,8 @@ $(document).ready(function() {
   console.log("in members js");
   
   $.get("/api/user_data").then(function(data) {
-    $(".member-name").text(data.email);
+    console.log("data", data);
+    
+    $(".member-name").text(data.firstName);
   });
 });
