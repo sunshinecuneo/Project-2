@@ -35,13 +35,13 @@ $(document).ready(function() {
       lastName: lastName
     }).then(function(data) {
       console.log(data)
-      if(data.errors.length > 0){
+      if(data.errors){
         $('#errorModal').modal('toggle')
         $('.modal-body p').text(data.errors[0].message)
       }
-
-      // window.location.replace(data);
-      // If there's an error, handle it by throwing up a boostrap alert
+      else{
+        window.location.replace(data);
+      }
     }).catch(handleLoginErr);
   }
 
