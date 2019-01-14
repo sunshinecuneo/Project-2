@@ -30,9 +30,9 @@ $(document).ready(function() {
       password: password
     }).then(function(data) {
       console.log(data)
-      if(data.errors){
+      if(data.message){
         $('#errorModal').modal('toggle')
-        $('.modal-body p').text(data.errors[0].message)
+        $('.modal-body p').text(data.message)
       }
       else{
         window.location.replace(data);
