@@ -19,7 +19,7 @@ font-size: 1.5rem;
 } */
 
 .background {
-    background-image: url("/Images/paintballguy.jpg");
+    background-image: url("/stylesheets/Images/paintballguy.jpg");
     opacity: .5;
     position: absolute;
     width: 100%;
@@ -57,9 +57,12 @@ h2 {
     color: rgb(138, 104, 29);
 }
 
+a{
+    color: rgb(138, 104, 29);
+}
 #creatAccountButton {
     background: rgb(29, 66, 138);
-    color: rgb(138, 104, 29);
+   
 }
 
 header{
