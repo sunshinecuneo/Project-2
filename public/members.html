@@ -377,7 +377,14 @@
 
       $("#createPoint").click(function () {
         insertPoint(event);
-        console.log(event);
+      
+        // $.get('/api/matches', function(data){
+        //   console.log(data[0]);
+        //   $('[dbid=1]').load("/members/");
+
+        // })
+        
+
 
       });
 
@@ -422,28 +429,28 @@
             var scoreTD = $("<td>").text("0-0");
             var wlTD = $("<td>").text("N/A");
             var netrtgTD = $("<td>").text(0);
-            var eppTD = $("<td>").text(0);
+            var eppTD = $("<td>").text(response[i].epp);
             var oppTD = $("<td>").text(0);
-            var toteTD = $("<td>").text(0);
-            var e1TD = $("<td>").text(0);
-            var e2TD = $("<td>").text(0);
-            var e3TD = $("<td>").text(0);
-            var e4TD = $("<td>").text(0);
-            var e5TD = $("<td>").text(0);
-            var eobTD = $("<td>").text(0);
-            var eibTD = $("<td>").text(0);
-            var eomTD = $("<td>").text(0);
-            var ebkrTD = $("<td>").text(0);
-            var tothTD = $("<td>").text(0);
-            var h1TD = $("<td>").text(0);
-            var h2TD = $("<td>").text(0);
-            var h3TD = $("<td>").text(0);
-            var h4TD = $("<td>").text(0);
-            var h5TD = $("<td>").text(0);
-            var hobTD = $("<td>").text(0);
-            var hibTD = $("<td>").text(0);
-            var homTD = $("<td>").text(0);
-            var hbkrTD = $("<td>").text(0);
+            var toteTD = $("<td>").text(response[i].tote);
+            var e1TD = $("<td>").text(response[i].e1);
+            var e2TD = $("<td>").text(response[i].e2);
+            var e3TD = $("<td>").text(response[i].e3);
+            var e4TD = $("<td>").text(response[i].e4);
+            var e5TD = $("<td>").text(response[i].e5);
+            var eobTD = $("<td>").text(response[i].eob);
+            var eibTD = $("<td>").text(response[i].eib);
+            var eomTD = $("<td>").text(response[i].eom);
+            var ebkrTD = $("<td>").text(response[i].ebkr);
+            var tothTD = $("<td>").text(response[i].toth);
+            var h1TD = $("<td>").text(response[i].h1);
+            var h2TD = $("<td>").text(response[i].h2);
+            var h3TD = $("<td>").text(response[i].h3);
+            var h4TD = $("<td>").text(response[i].h4);
+            var h5TD = $("<td>").text(response[i].h5);
+            var hobTD = $("<td>").text(response[i].hob);
+            var hibTD = $("<td>").text(response[i].hib);
+            var homTD = $("<td>").text(response[i].hom);
+            var hbkrTD = $("<td>").text(response[i].hbkr);
 
             var hiddenRow = $("<tr>").addClass("point");
             hiddenRow.attr("id", "button" + response[i].id);
@@ -465,7 +472,7 @@
             hiddenRow.append(hiddenTD);
             tBody.prepend(tRow, hiddenRow);
 
-    
+   
           }
 
 
@@ -511,7 +518,7 @@
             newSubRow.append(pointHeader, wlTD, netrtgTD, eppTD, oppTD, toteTD, e1TD, e2TD, e3TD, e4TD, e5TD, eobTD, eibTD, eomTD, ebkrTD, tothTD, h1TD, h2TD, h3TD, h4TD, h5TD, hobTD, hibTD, homTD, hbkrTD);
             $('[dbID=' + response[i].MatchId + ']').after(newSubRow);
 
-
+              console.log(response);
 
           }
 
@@ -624,7 +631,7 @@
         var point = {
           match_id: activeMatch,
           wl: $("input[name='resultRadio']:checked").val(),
-          tote: "0",
+          tote: 0,
           e1: $newPeo1.val(),
           e2: $newPeo2.val(),
           e3: $newPeo3.val(),
@@ -679,6 +686,9 @@
             var hbkrTD = $("<td>").text(response.hbkr);
             newSubRow.append(pointHeader, wlTD, netrtgTD, eppTD, oppTD, toteTD, e1TD, e2TD, e3TD, e4TD, e5TD, eobTD, eibTD, eomTD, ebkrTD, tothTD, h1TD, h2TD, h3TD, h4TD, h5TD, hobTD, hibTD, homTD, hbkrTD);
             $('[dbID=' + response.MatchId + ']').after(newSubRow);
+
+            
+
         });
 
 
