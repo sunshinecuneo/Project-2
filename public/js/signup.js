@@ -19,7 +19,7 @@ $(document).ready(function() {
     if (!userData.email || !userData.password || !userData.firstName || !userData.lastName) {
       return;
     }
-    // If we have an email and password, run the signUpUser function
+    // If we have an email, password, first name and last name, run the signUpUser function
     signUpUser(userData.email, userData.password, userData.firstName, userData.lastName );
     emailInput.val("");
     passwordInput.val("");

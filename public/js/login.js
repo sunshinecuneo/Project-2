@@ -23,18 +23,33 @@ $(document).ready(function() {
   });
 
   // loginUser does a post to our "api/login" route and if successful, redirects us the the members page
+  // Otherwise we log any errors
   function loginUser(email, password) {
     $.post("/api/login", {
       email: email,
       password: password
     }).then(function(data) {
-      window.location.replace(data);
-      // If there's an error, log the error
-    }).catch(function(err, res) {
-      console.log("err", err);
-      console.log("res", res);
-      
-    });
+      console.log(data)
+      if(data.message){
+        $('#errorModal').modal('toggle')
+        $('.modal-body p').text(data.message)
+      }
+      else{
+        window.location.replace(data);
+      }
+    }).catch(handleLoginErr);
   }
 
+  function handleLoginErr(err) {
+    $("#alert .msg").text(err.responseJSON);
+    $("#alert").fadeIn(500);
+    //   window.location.replace(data);
+    //   // If there's an error, log the error
+    // }).catch(function(err) {
+    //   console.log("err", err);
+    //   // $('#errorModal').modal('toggle')
+    //   // $("#alert .msg").text("Incorrect email or password, Try Again.");
+    //   // $("#alert").fadeIn(500);
+    // });
+  }
 });
