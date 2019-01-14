@@ -45,11 +45,142 @@ module.exports = function(app) {
     else {
       // Otherwise send back the user's email and id
       // Sending back a password, even a hashed password, isn't a good idea
+     db.User.findAll({
+      include: [db.Match]
+     }).then(function(result) {
       res.json({
         email: req.user.email,
-        id: req.user.id
+        id: req.user.id,
+        Matches: result[0].Matches
       });
+     })
     }
+  });
+
+  app.get("/api/matches", function(req, res) {
+    // findAll returns all entries for a table when used with no options
+    db.Match.findAll({
+      include: [db.Points]
+    }).then(function(result) {
+      // We have access to the todos as an argument inside of the callback function
+      res.json(result);
+    });
+  });
+
+
+
+  // POST route for saving a new todo
+  app.post("/api/matches", function(req, res) {
+    console.log(req.body);
+    // create takes an argument of an object describing the item we want to
+    // insert into our table. In this case we just we pass in an object with a text
+    // and complete property (req.body)
+    db.Match.create({
+      date: req.body.date,
+      opponent: req.body.opponent,
+      UserId: req.user.id
+    }).then(function(result) {
+      // We have access to the new todo as an argument inside of the callback function
+      res.json(result);
+    });
+  });
+
+  app.get("/api/points", function(req, res) {
+    // findAll returns all entries for a table when used with no options
+    db.Points.findAll({}).then(function(result) {
+      // We have access to the todos as an argument inside of the callback function
+      res.json(result);
+    });
+  });
+
+  // POST route for saving a new todo
+  app.post("/api/points", function(req, res) {
+    
+    // create takes an argument of an object describing the item we want to
+    // insert into our table. In this case we just we pass in an object with a text
+    // and complete property (req.body)
+    
+    //wl column
+    var pointResult = req.body.wl;
+    var resultUpper = pointResult.toUpperCase();
+
+    //elim total
+    var pointTOTE = parseInt(req.body.e1) + parseInt(req.body.e2) + parseInt(req.body.e3) + parseInt(req.body.e4) + parseInt(req.body.e5);
+    
+
+    //hit total
+    var pointTOTH = parseInt(req.body.h1) + parseInt(req.body.h2) + parseInt(req.body.h3) + parseInt(req.body.h4) + parseInt(req.body.h5);
+
+    db.Points.create({
+      wl: resultUpper,
+      match_id: req.body.match_id,
+      tote: pointTOTE,
+      e1: parseInt(req.body.e1),
+      e2: parseInt(req.body.e2),
+      e3: parseInt(req.body.e3),
+      e4: parseInt(req.body.e4),
+      e5: parseInt(req.body.e5),
+      eob: parseInt(req.body.eob),
+      eib: parseInt(req.body.eib),
+      eom: parseInt(req.body.eom),
+      ebkr: parseInt(req.body.ebkr),
+      toth: parseInt(pointTOTH),
+      h1: parseInt(req.body.h1),
+      h2: parseInt(req.body.h2),
+      h3: parseInt(req.body.h3),
+      h4: parseInt(req.body.h4),
+      h5: parseInt(req.body.h5),
+      hob: parseInt(req.body.hob),
+      hib: parseInt(req.body.hib),
+      hom: parseInt(req.body.hom),
+      hbkr: parseInt(req.body.hbkr),
+      MatchId: req.body.match_id
+    }).then(function(result) {
+      // We have access to the new todo as an argument inside of the callback function
+      db.Match.findOne({ 
+        where: {
+          id: req.body.match_id
+        }
+      }).then(function(data) {
+      //  var numPoints =  data.Points.length + 1;
+       data.tote = data.tote + pointTOTE;
+       console.log("data.e1", typeof data.e1);
+       console.log(data.e1);
+       data.e1 = data.e1 + parseInt(req.body.e1);
+       data.e2 = data.e2 + parseInt(req.body.e2);
+       data.e3 = data.e3 + parseInt(req.body.e3);
+       data.e4 = data.e4 + parseInt(req.body.e4);
+       data.e5 = data.e5 + parseInt(req.body.e5);
+       data.eob = data.eob + parseInt(req.body.eob);
+       data.eib = data.eib + parseInt(req.body.eib);
+       data.eom = data.eom + parseInt(req.body.eom);
+       data.ebkr = data.ebkr + parseInt(req.body.ebkr);
+       data.toth = data.toth + parseInt(pointTOTH);
+       data.h1 = data.h1 + parseInt(req.body.h1);
+       data.h2 = data.h2 + parseInt(req.body.h2);
+       data.h3 = data.h3 + parseInt(req.body.h3);
+       data.h4 = data.h4 + parseInt(req.body.h4);
+       data.h5 = data.h5 + parseInt(req.body.h5);
+       data.hob = data.hob + parseInt(req.body.hob);
+       data.hib = data.hib + parseInt(req.body.hib);
+       data.hom = data.hom + parseInt(req.body.hom);
+       data.hbkr = data.hbkr + parseInt(req.body.hbkr);
+
+       console.log("data.e1 after parse", typeof data.e1);
+       console.log("data e1-e4: ", data.e1, data.e2, data.e3, data.e4);
+      //  data.epp = data.tote / numPoints;
+
+        return data;
+      }).then(function(updatedData){
+        db.Match.update(updatedData.dataValues, {
+          where: {
+            id: req.body.match_id
+          }
+        }
+        )
+      })
+      res.json(result);
+    });
   });
 
 };
