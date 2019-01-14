@@ -161,12 +161,17 @@ module.exports = function(app) {
       db.Match.findOne({ 
         where: {
           id: req.body.match_id
-        }
+        },
+        include: [db.Points]
       }).then(function(data) {
-      //  var numPoints =  data.Points.length + 1;
+       var numPoints =  data.Points.length;
+
+       var epp = data.tote / numPoints;
+       var eppFinal = epp;
+
+      
+       data.epp = eppFinal;
        data.tote = data.tote + pointTOTE;
-       console.log("data.e1", typeof data.e1);
-       console.log(data.e1);
        data.e1 = data.e1 + parseInt(req.body.e1);
        data.e2 = data.e2 + parseInt(req.body.e2);
        data.e3 = data.e3 + parseInt(req.body.e3);
@@ -187,8 +192,23 @@ module.exports = function(app) {
        data.hom = data.hom + parseInt(req.body.hom);
        data.hbkr = data.hbkr + parseInt(req.body.hbkr);
 
-       console.log("data.e1 after parse", typeof data.e1);
-       console.log("data e1-e4: ", data.e1, data.e2, data.e3, data.e4);
+        
+       console.log("data", data);
+       console.log(data.tote);
+       console.log("tote", data.tote + typeof data.tote)
+       console.log("numpoints", numPoints + typeof numPoints);
+       console.log("epp type", epp + typeof epp);
+       
+       console.log("eppfinal");
+       console.log("eppfinal", eppFinal + typeof eppFinal);
+       console.log(data.tote);
+      // console.log("data", data);
+    
+      // console.log("epp type", typeof data.epp);
+      // console.log("tote", data.tote);
+      // console.log("numPoints: ", numPoints);
+      // console.log("numPoints type: ", typeof numPoints);
+      //  //stat line
       //  data.epp = data.tote / numPoints;
 
         return data;
@@ -201,6 +221,8 @@ module.exports = function(app) {
         )
       })
       res.json(result);
+
+            
     });
   });
 

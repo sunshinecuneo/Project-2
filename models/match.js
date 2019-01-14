@@ -4,7 +4,7 @@ module.exports = function (sequelize, DataTypes) {
     opponent: DataTypes.STRING,
     wl: DataTypes.STRING,
     tote: DataTypes.INTEGER,
-    //add epp
+    epp: DataTypes.INTEGER,
     e1: DataTypes.INTEGER,
     e2: DataTypes.INTEGER,
     e3: DataTypes.INTEGER,
@@ -23,7 +23,7 @@ module.exports = function (sequelize, DataTypes) {
     hob: DataTypes.INTEGER,
     hib: DataTypes.INTEGER,
     hom: DataTypes.INTEGER,
-    hbkr: DataTypes.INTEGER
+    hbkr: DataTypes.INTEGER,
     
   });
 
