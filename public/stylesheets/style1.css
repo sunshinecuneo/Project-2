@@ -19,7 +19,7 @@ font-size: 1.5rem;
 } */
 
 .background {
-    background-image: url("images/paintballguy.jpg");
+    background-image: url("/Images/paintballguy.jpg");
     opacity: .5;
     position: absolute;
     width: 100%;
