@@ -2,30 +2,699 @@
 <html lang="en">
 
 <head>
-  <title>Passport Authentication</title>
+  <title>Dashboard</title>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1">
-  <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootswatch/3.3.7/lumen/bootstrap.min.css">
+  <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootswatch/3.3.7/lumen/bootstrap.min.css" />
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/bootswatch/4.0.0/lumen/bootstrap.min.css" />
+  <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.2.1/css/bootstrap.min.css" integrity="sha384-GJzZqFGwb1QTTN6wy59ffF1BuGJpLSa9DkKMp0DgiMDm4iYMj70gZWKYbI706tWS"
+    crossorigin="anonymous">
   <link href="stylesheets/style.css" rel="stylesheet">
+  <script src="https://code.jquery.com/jquery.js"></script>
+  <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/js/bootstrap.min.js"></script>
+  <script src="https://cdn.jsdelivr.net/momentjs/2.12.0/moment.min.js"></script>
+
+
 </head>
 
 <body>
   <nav class="navbar navbar-default">
-  <div class="container-fluid">
-    <div class="navbar-header">
-      <a class="navbar-brand" href="/logout">
-        Logout
-      </a>
-    </div>
-  </div>
-</nav>
-  <div class="container">
-    <div class="row">
-      <div class="col-md-6 col-md-offset-3">
-        <h2>Welcome <span class="member-name"></span></h2>
+    <div class="container-fluid">
+      <div class="navbar-header">
+        <a class="navbar-brand" href="/logout">
+          Logout
+        </a>
       </div>
     </div>
+  </nav>
+
+
+  <!--  Summary Header  -->
+
+  <div class="container">
+
+    <div class="header">
+      <div class="container">
+        <img class="headerImage" src="https://www.apartments.com/images/default-source/images-for-renters-blog/paintball.tmb-featuredim.jpeg?sfvrsn=acbba114_2"
+          height="200px" width="200px" alt="Italian Trulli">
+        <h1>Welcome, <span class="member-name display-4"></span>!</h1>
+        <div class="test"> NETRTG: </div>
+        <div class="test"> EPP: </div>
+        <div class="test"> OPP: </div>
+        <!-- <h1 class="display-4">Fluid jumbotron</h1>
+        <p class="lead">This is a modified jumbotron that occupies the entire horizontal space of its parent.</p> -->
+      </div>
+
+
+      <div class="container">
+        <div class="row headerStats">
+          <div class="col-sm">
+            Elimination Chart
+          </div>
+          <div class="col-sm">
+            Out Chart
+          </div>
+        </div>
+      </div>
+    </div>
+    <br>
+
+    <button type="button" class="btn btn-primary btn-lg btn-block newMatch" data-toggle="modal" data-target="#exampleModal"
+      data-whatever="@mdo">Create New Match</button>
+
+    <!-- Match Modal -->
+
+    <div class="modal fade" id="exampleModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel"
+      aria-hidden="true">
+      <div class="modal-dialog" role="document">
+        <div class="modal-content">
+          <div class="modal-header">
+            <h5 class="modal-title" id="exampleModalLabel">New Match</h5>
+            <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+              <span aria-hidden="true">&times;</span>
+            </button>
+          </div>
+          <div class="modal-body">
+            <form id="matchForm">
+              <div class="form-group">
+                <label for="recipient-name" class="col-form-label">Date:</label>
+                <input type="date" class="form-control newDate">
+              </div>
+              <div class="form-group">
+                <label for="message-text" class="col-form-label">Opponent:</label>
+                <input type="text" class="form-control newOpponent"></textarea>
+              </div>
+            </form>
+          </div>
+          <div class="modal-footer">
+            <button type="button" class="btn btn-secondary" data-dismiss="modal">Cancel</button>
+            <button type="button" class="btn btn-primary" id="createMatch">Create Match</button>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- End Match Modal Code -->
+
+    <!-- Point Modal -->
+
+    <div class="modal fade" id="pointModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+      <div class="modal-dialog" role="document">
+        <div class="modal-content">
+          <div class="modal-header">
+            <h5 class="modal-title" id="exampleModalLabel">Add Point</h5>
+            <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+              <span aria-hidden="true">&times;</span>
+            </button>
+          </div>
+          <div class="modal-body">
+            <form id="matchForm">
+              <div class="inputHeader">Result</div><br>
+              <div class="form-check form-check-inline">
+                <input class="form-check-input pwin" type="radio" name="resultRadio" id="radioW" value="w">
+                <label class="form-check-label" for="inlineRadio1">Won</label>
+              </div>
+              <div class="form-check form-check-inline resultBtns">
+                <input class="form-check-input pwin" type="radio" name="resultRadio" id="radioL" value="l">
+                <label class="form-check-label" for="inlineRadio2">Lost</label>
+              </div><br>
+
+<!-- Eliminations -->
+              <div class="inputHeader">Eliminations</div>
+  <!-- ORDER -->
+              <label for="elim-order" 
+              class="col-form-label">Elimination Order:</label><br>
+              <div class="form-check form-check-inline">
+                <input 
+                    name="elim-order1" 
+                    class="form-check-input elimOrderBox peo1" 
+                    type="number" 
+                    id="inlineCheckbox1"
+                    min="0" max="1"
+                    value="0"/>
+                <label 
+                    class="form-check-label" 
+                    for="inlineCheckbox1">1</label>
+              </div>
+              <div class="form-check form-check-inline">
+                <input 
+                    name="elim-order2" 
+                    class="form-check-input elimOrderBox peo2" 
+                    type="number" 
+                    id="inlineCheckbox2"
+                    min="0" max="1"
+                    value="0">
+                <label 
+                    class="form-check-label" 
+                    for="inlineCheckbox2">2</label>
+              </div>
+              <div class="form-check form-check-inline">
+                <input
+                     name="elim-order3" 
+                     class="form-check-input elimOrderBox peo3" 
+                     type="number" 
+                     id="inlineCheckbox3"
+                     min="0" max="1"
+                     value="0">
+                <label class="form-check-label" for="inlineCheckbox3">3</label>
+              </div>
+              <div class="form-check form-check-inline">
+                <input 
+                  name="elim-order4"
+                  class="form-check-input elimOrderBox peo4" 
+                  type="number" 
+                  id="inlineCheckbox4"
+                  min="0" max="1"
+                  value="0">
+                <label class="form-check-label" for="inlineCheckbox4">4</label>
+              </div>
+              <div class="form-check form-check-inline">
+                <input 
+                    name="elim-order5" 
+                    class="form-check-input elimOrderBox peo5" 
+                    type="number" 
+                    id="inlineCheckbox5"
+                    min="0" max="1"
+                    value="0" />
+                <label class="form-check-label" for="inlineCheckbox5">5</label>
+              </div><br>
+              <label for="elim-type" class="col-form-label">Elimination Type:</label><br>
+
+              <div class="form-row align-items-center">
+                <div class="col-md-2">
+                  <label for="inlineFormInput">OB</label>
+                  <input type="number" class="form-control mb-2 peob" id="inlineFormInput" value="0">
+                </div>
+                <div class="col-md-2">
+                  <label for="inlineFormInput">IB</label>
+                  <input type="number" class="form-control mb-2 peib" id="inlineFormInput" value="0">
+                </div>
+                <div class="col-md-2">
+                  <label for="inlineFormInput">OM</label>
+                  <input type="number" class="form-control mb-2 peom" id="inlineFormInput" value="0">
+                </div>
+                <div class="col-md-2">
+                  <label for="inlineFormInput">BKRD</label>
+                  <input type="number" class="form-control mb-2 pebkrd" id="inlineFormInput" value="0">
+                </div>
+
+ 
+              </div>
+
+
+              <div class="inputHeader">Outs</div>
+              <label for="elim-order" class="col-form-label">Out Order:</label><br>
+              
+              <div class="form-check form-check-inline poo1">
+                <input class="form-check-input poo1" type="number"  id="outRadio1" value="0"  min="0" max="1">
+                <label class="form-check-label" for="outRadio1">1</label>
+              </div>
+
+              <div class="form-check form-check-inline">
+                <input class="form-check-input poo2" type="number"  id="outRadio2" min="0" max="1"
+                value="0">
+                <label class="form-check-label" for="outRadio2">2</label>
+              </div>
+              <div class="form-check form-check-inline">
+                <input class="form-check-input poo3" type="number"  id="outRadio3" min="0" max="1"
+                value="0">
+                <label class="form-check-label" for="outRadio3">3</label>
+              </div>
+              <div class="form-check form-check-inline">
+                <input class="form-check-input poo4" type="number"  id="outRadio4" min="0" max="1"
+                value="0">
+                <label class="form-check-label" for="outRadio4">4</label>
+              </div>
+              <div class="form-check form-check-inline">
+                <input class="form-check-input poo5" type="number"  id="outRadio5" min="0" max="1"
+                value="0">
+                <label class="form-check-label" for="outRadio5">5</label>
+              </div> <br>
+              <label for="elim-order" class="col-form-label">Out Type:</label><br>
+              <div class="form-check form-check-inline">
+                <input class="form-check-input poob" type="number" id="typeRadio1" min="0" max="1"
+                value="0">
+                <label class="form-check-label" for="typeRadio1">OB</label>
+              </div>
+              <div class="form-check form-check-inline">
+                <input class="form-check-input poib" type="number" id="typeRadio2" min="0" max="1"
+                value="0">
+                <label class="form-check-label" for="typeRadio2">IB</label>
+              </div>
+              <div class="form-check form-check-inline">
+                <input class="form-check-input poom" type="number" id="typeRadio3" min="0" max="1"
+                value="0">
+                <label class="form-check-label" for="typeRadio3">OM</label>
+              </div>
+              <div class="form-check form-check-inline">
+                <input class="form-check-input pobkrd" type="number" id="typeRadio4" min="0" max="1"
+                value="0">
+                <label class="form-check-label" for="typeRadio4">BKRD</label>
+              </div>
+            </form>
+          </div>
+          <div class="modal-footer">
+            <button type="button" class="btn btn-secondary" data-dismiss="modal">Cancel</button>
+            <button type="button" class="btn btn-primary" id="createPoint">Add Point</button>
+          </div>
+        </div>
+      </div>
+    </div>
+
+
+
+
+    <!-- End Point Modal Code -->
+
+    <br>
+
+    <table id="mTable" class="table table-hover table-striped table-responsive-xl">
+
+      <!-- Table Header -->
+
+      <thead class="gameTable">
+        <tr>
+          <th colspan="7" scope="col">Summary</th>
+          <th colspan="10" scope="col">Eliminations</th>
+          <th colspan="10" scope="col">Outs</th>
+        </tr>
+        <tr>
+          <th scope="col">Date</th>
+          <th scope="col">Opp</th>
+          <th scope="col">SCORE</th>
+          <th scope="col">W/L</th>
+          <th scope="col">NETRTG</th>
+          <th scope="col">EPP</th>
+          <th scope="col">OPP</th>
+          <th scope="col">TOTE</th>
+          <th scope="col">E1</th>
+          <th scope="col">E2</th>
+          <th scope="col">E3</th>
+          <th scope="col">E4</th>
+          <th scope="col">E5</th>
+          <th scope="col">OB</th>
+          <th scope="col">IB</th>
+          <th scope="col">OM</th>
+          <th scope="col">BKR</th>
+          <th scope="col">TOTH</th>
+          <th scope="col">H1</th>
+          <th scope="col">H2</th>
+          <th scope="col">H3</th>
+          <th scope="col">H4</th>
+          <th scope="col">H5</th>
+          <th scope="col">OB</th>
+          <th scope="col">IB</th>
+          <th scope="col">OM</th>
+          <th scope="col">BKR</th>
+        </tr>
+      </thead>
+
+      <!--  Match 1 -->
+      <tbody class="matchTable">
+        <!-- <tr class="match" id="match-1">
+          <th scope="row">10/21/2018</th>
+          <td>Dynasty</td>
+          <td>2-1</td>
+          <td>W</td>
+          <td>1</td>
+          <td>0</td>
+          <td>0</td>
+          <td>0</td>
+          <td>1</td>
+          <td>1</td>
+          <td>1</td>
+          <td>0</td>
+          <td>0</td>
+          <td>0</td>
+          <td>0</td>
+          <td>0</td>
+          <td>0</td>
+          <td>0</td>
+          <td>0</td>
+          <td>0</td>
+          <td>0</td>
+          <td>0</td>
+          <td>0</td>
+          <td>0</td>
+          <td>0</td>
+          <td>0</td>
+          <td>0</td>
+        </tr> -->
+
+       
+
+
+      </tbody>
+    </table>
+
+
   </div>
+
+
+
+  <!-- On click functions to show/hide match-points -->
+  <script>
+    $(document).ready(function () {
+
+      $("#mTable").on("click", ".match", function () {
+        //var rowID = $(this).siblings().attr("rowID");
+        var rowID = $(this).attr("rowID");
+        var dbID = $(this).attr("dbID")
+        // var regID = $(this).siblings().attr("id");
+        $(`#button${dbID}`).toggle(500);
+        $('[data-point-id=' + dbID + ']').toggle(500);
+
+      });
+
+      $("#match-1").click(function () {
+        $(".match-1-point").toggle(500);
+      });
+
+      $("#createMatch").click(function () {
+        insertMatch(event);
+
+      });
+
+      $("#createPoint").click(function () {
+        insertPoint(event);
+        console.log(event);
+
+      });
+
+      $(".matchTable").on("click", ".pointButton", function (event) {
+        activeMatch = $(this).parents(".point").attr("data-match-id");
+      });
+
+
+      // Modal function 
+
+      $('#exampleModal').on('show.bs.modal', function (event) {
+        var button = $(event.relatedTarget) // Button that triggered the modal
+        var recipient = button.data('whatever') // Extract info from data-* attributes
+        // If necessary, you could initiate an AJAX request here (and then do the updating in a callback).
+        // Update the modal's content. We'll use jQuery here, but you could use a data binding library or other methods instead.
+        var modal = $(this)
+        modal.find('.modal-title').text('New message to ' + recipient)
+        modal.find('.modal-body input').val(recipient)
+      })
+
+      var activeMatch = 0;
+      var $newDate = $("input.newDate");
+      var $newOpponent = $("input.newOpponent");
+      var matchTable = $(".matchTable");
+
+      initializeRows();
+      initializePoints();
+
+      function initializeRows(event) {
+
+        // Gets Matches Rows
+        $.get("/api/matches").then(function (response) {
+
+          for (var i = 0; i < response.length; i++) {
+
+
+            var tBody = $(".matchTable");
+            var tRow = $("<tr>").addClass("match").attr("dbID", response[i].id);
+            // tRow.attr("dbID", response.id)
+            var dateTD = $("<th>").text(moment(response[i].date).format("MM/DD/YYYY"));
+            var oppntTD = $("<th>").text(response[i].opponent);
+            var scoreTD = $("<td>").text("0-0");
+            var wlTD = $("<td>").text("N/A");
+            var netrtgTD = $("<td>").text(0);
+            var eppTD = $("<td>").text(0);
+            var oppTD = $("<td>").text(0);
+            var toteTD = $("<td>").text(0);
+            var e1TD = $("<td>").text(0);
+            var e2TD = $("<td>").text(0);
+            var e3TD = $("<td>").text(0);
+            var e4TD = $("<td>").text(0);
+            var e5TD = $("<td>").text(0);
+            var eobTD = $("<td>").text(0);
+            var eibTD = $("<td>").text(0);
+            var eomTD = $("<td>").text(0);
+            var ebkrTD = $("<td>").text(0);
+            var tothTD = $("<td>").text(0);
+            var h1TD = $("<td>").text(0);
+            var h2TD = $("<td>").text(0);
+            var h3TD = $("<td>").text(0);
+            var h4TD = $("<td>").text(0);
+            var h5TD = $("<td>").text(0);
+            var hobTD = $("<td>").text(0);
+            var hibTD = $("<td>").text(0);
+            var homTD = $("<td>").text(0);
+            var hbkrTD = $("<td>").text(0);
+
+            var hiddenRow = $("<tr>").addClass("point");
+            hiddenRow.attr("id", "button" + response[i].id);
+            hiddenRow.attr("data-match-id", response[i].id);
+            var hiddenTD = $("<td>").attr("colspan", "27");
+            var hiddenBtn = $("<button>").attr({
+              type: "button",
+              class: "btn btn-primary pointButton",
+              "data-toggle": "modal",
+              "data-target": "#pointModal",
+              "data-whatever": "@getbootstrap",
+              "btnID": response[i].id
+            }).text("New Point");
+
+
+
+            tRow.append(dateTD, oppntTD, scoreTD, wlTD, netrtgTD, eppTD, oppTD, toteTD, e1TD, e2TD, e3TD, e4TD, e5TD, eobTD, eibTD, eomTD, ebkrTD, tothTD, h1TD, h2TD, h3TD, h4TD, h5TD, hobTD, hibTD, homTD, hbkrTD, hiddenRow, hiddenTD);
+            hiddenTD.append(hiddenBtn);
+            hiddenRow.append(hiddenTD);
+            tBody.prepend(tRow, hiddenRow);
+
+    
+          }
+
+
+        });
+
+
+      };
+
+      //initialize Points
+
+
+      // Gets Matches Rows
+
+      function initializePoints(event) {
+        $.get("/api/points").then(function (response) {
+          for (var i = 0; i < response.length; i++) {
+            var newSubRow = $("<tr>").attr("data-point-id", response[i].MatchId).addClass("point");
+            var pointHeader = $("<th>").attr("colspan", "3").addClass("pointHeader").text("Point " + (i + 1));
+            var wlTD = $("<td>").text(response[i].wl);
+            var netrtgTD = $("<td>").text(response[i].netrtg);
+            var eppTD = $("<td>").text(response[i].epp);
+            var oppTD = $("<td>").text(response[i].opp);
+            var toteTD = $("<td>").text(response[i].tote);
+            var e1TD = $("<td>").text(response[i].e1);
+            var e2TD = $("<td>").text(response[i].e2);
+            var e3TD = $("<td>").text(response[i].e3);
+            var e4TD = $("<td>").text(response[i].e4);
+            var e5TD = $("<td>").text(response[i].e5);
+            var eobTD = $("<td>").text(response[i].eob);
+            var eibTD = $("<td>").text(response[i].eib);
+            var eomTD = $("<td>").text(response[i].eom);
+            var ebkrTD = $("<td>").text(response[i].ebkr);
+            var tothTD = $("<td>").text(response[i].toth);
+            var h1TD = $("<td>").text(response[i].h1);
+            var h2TD = $("<td>").text(response[i].h2);
+            var h3TD = $("<td>").text(response[i].h3);
+            var h4TD = $("<td>").text(response[i].h4);
+            var h5TD = $("<td>").text(response[i].h5);
+            var hobTD = $("<td>").text(response[i].hob);
+            var hibTD = $("<td>").text(response[i].hib);
+            var homTD = $("<td>").text(response[i].hom);
+            var hbkrTD = $("<td>").text(response[i].hbkr);
+            newSubRow.append(pointHeader, wlTD, netrtgTD, eppTD, oppTD, toteTD, e1TD, e2TD, e3TD, e4TD, e5TD, eobTD, eibTD, eomTD, ebkrTD, tothTD, h1TD, h2TD, h3TD, h4TD, h5TD, hobTD, hibTD, homTD, hbkrTD);
+            $('[dbID=' + response[i].MatchId + ']').after(newSubRow);
+
+
+
+          }
+
+
+        });
+      };
+
+
+
+
+
+      function insertMatch(event) {
+        event.preventDefault();
+        var match = {
+          date: $newDate.val(),
+          opponent: $newOpponent.val()
+        };
+
+        // Sends data to database
+        $.post("/api/matches", match).then(function (response) {
+
+          var tBody = $(".matchTable");
+          var tRow = $("<tr>").addClass("match");
+          tRow.attr("dbID", response.id);
+          var dateTD = $("<th>").text(moment(response.date).format("MM/DD/YYYY"));
+          var oppntTD = $("<td>").text(response.opponent);
+          var scoreTD = $("<td>").text("0-0");
+          var wlTD = $("<td>").text("N/A");
+          var netrtgTD = $("<td>").text(0);
+          var eppTD = $("<td>").text(0);
+          var oppTD = $("<td>").text(0);
+          var toteTD = $("<td>").text(0);
+          var e1TD = $("<td>").text(0);
+          var e2TD = $("<td>").text(0);
+          var e3TD = $("<td>").text(0);
+          var e4TD = $("<td>").text(0);
+          var e5TD = $("<td>").text(0);
+          var eobTD = $("<td>").text(0);
+          var eibTD = $("<td>").text(0);
+          var eomTD = $("<td>").text(0);
+          var ebkrTD = $("<td>").text(0);
+          var tothTD = $("<td>").text(0);
+          var h1TD = $("<td>").text(0);
+          var h2TD = $("<td>").text(0);
+          var h3TD = $("<td>").text(0);
+          var h4TD = $("<td>").text(0);
+          var h5TD = $("<td>").text(0);
+          var hobTD = $("<td>").text(0);
+          var hibTD = $("<td>").text(0);
+          var homTD = $("<td>").text(0);
+          var hbkrTD = $("<td>").text(0);
+
+
+          var hiddenRow = $("<tr>").addClass("point");
+          // hiddenRow.attr("rowID", response[i].id);
+          hiddenRow.attr("id", "button" + response.id).attr("data-match-id", response.id);
+          var hiddenTD = $("<td>").attr("colspan", "27");
+          var hiddenBtn = $("<button>").attr({
+            type: "button",
+            class: "btn btn-primary pointButton",
+            "data-toggle": "modal",
+            "data-target": "#pointModal",
+            "data-whatever": "@getbootstrap",
+            "btnID": response.id
+          }).text("New Point");
+
+
+          tRow.append(dateTD, oppntTD, scoreTD, wlTD, netrtgTD, eppTD, oppTD, toteTD, e1TD, e2TD, e3TD, e4TD, e5TD, eobTD, eibTD, eomTD, ebkrTD, tothTD, h1TD, h2TD, h3TD, h4TD, h5TD, hobTD, hibTD, homTD, hbkrTD, hiddenRow, hiddenTD);
+          hiddenTD.append(hiddenBtn);
+          hiddenRow.append(hiddenTD);
+          tBody.prepend(tRow, hiddenRow);
+
+          tRow.append(dateTD, oppntTD, scoreTD, wlTD, netrtgTD, eppTD, oppTD, toteTD, e1TD, e2TD, e3TD, e4TD, e5TD, eobTD, eibTD, eomTD, ebkrTD, tothTD, h1TD, h2TD, h3TD, h4TD, h5TD, hobTD, hibTD, homTD, hbkrTD);
+          tBody.prepend(tRow);
+
+        });
+
+
+      };
+
+
+      var $pResult = $("input[name='resultRadio']:checked");
+      var $newPWin = $("input.pwin");
+      var $newPLoss = $("input.ploss");
+      var $newPeo1 = $("input.peo1");
+      var $newPeo2 = $("input.peo2");
+      var $newPeo3 = $("input.peo3");
+      var $newPeo4 = $("input.peo4");
+      var $newPeo5 = $("input.peo5");
+      var $newPeob = $("input.peob");
+      var $newPeib = $("input.peib");
+      var $newPeom = $("input.peom");
+      var $newPebkrd = $("input.pebkrd");
+      var $newPoo1 = $("input.poo1");
+      var $newPoo2 = $("input.poo2");
+      var $newPoo3 = $("input.poo3");
+      var $newPoo4 = $("input.poo4");
+      var $newPoo5 = $("input.poo5");
+      var $newPoob = $("input.poob");
+      var $newPoib = $("input.poib");
+      var $newPoom = $("input.poom");
+      var $newPobkrd = $("input.pobkrd");
+
+
+      var matchTable = $(".matchTable");
+
+
+      function insertPoint(event) {
+        event.preventDefault();
+        var point = {
+          match_id: activeMatch,
+          wl: $("input[name='resultRadio']:checked").val(),
+          tote: "0",
+          e1: $newPeo1.val(),
+          e2: $newPeo2.val(),
+          e3: $newPeo3.val(),
+          e4: $newPeo4.val(),
+          e5: $newPeo5.val(),
+          eob: $newPeob.val(),
+          eib: $newPeib.val(),
+          eom: $newPeom.val(),
+          ebkr: $newPebkrd.val(),
+          toth: "0",
+          h1: $newPoo1.val(),
+          h2: $newPoo2.val(),
+          h3: $newPoo3.val(),
+          h4: $newPoo4.val(),
+          h5: $newPoo5.val(),
+          hob: $newPoob.val(),
+          hib: $newPoib.val(),
+          hom: $newPoom.val(),
+          hbkr: $newPobkrd.val()
+        };
+        console.log("point: ", point);
+
+
+        // Sends data to database
+        $.post("/api/points", point).then(function (response) { 
+          var newSubRow = $("<tr>").attr("data-point-id", response.MatchId).addClass("point");
+            newSubRow.attr("style", "display: table-row;");
+            var pointHeader = $("<th>").attr("colspan", "3").addClass("pointHeader").text("Point " + (1));
+            var wlTD = $("<td>").text(response.wl);
+            var netrtgTD = $("<td>").text(response.netrtg);
+            var eppTD = $("<td>").text(response.epp);
+            var oppTD = $("<td>").text(response.opp);
+            var toteTD = $("<td>").text(response.tote);
+            var e1TD = $("<td>").text(response.e1);
+            var e2TD = $("<td>").text(response.e2);
+            var e3TD = $("<td>").text(response.e3);
+            var e4TD = $("<td>").text(response.e4);
+            var e5TD = $("<td>").text(response.e5);
+            var eobTD = $("<td>").text(response.eob);
+            var eibTD = $("<td>").text(response.eib);
+            var eomTD = $("<td>").text(response.eom);
+            var ebkrTD = $("<td>").text(response.ebkr);
+            var tothTD = $("<td>").text(response.toth);
+            var h1TD = $("<td>").text(response.h1);
+            var h2TD = $("<td>").text(response.h2);
+            var h3TD = $("<td>").text(response.h3);
+            var h4TD = $("<td>").text(response.h4);
+            var h5TD = $("<td>").text(response.h5);
+            var hobTD = $("<td>").text(response.hob);
+            var hibTD = $("<td>").text(response.hib);
+            var homTD = $("<td>").text(response.hom);
+            var hbkrTD = $("<td>").text(response.hbkr);
+            newSubRow.append(pointHeader, wlTD, netrtgTD, eppTD, oppTD, toteTD, e1TD, e2TD, e3TD, e4TD, e5TD, eobTD, eibTD, eomTD, ebkrTD, tothTD, h1TD, h2TD, h3TD, h4TD, h5TD, hobTD, hibTD, homTD, hbkrTD);
+            $('[dbID=' + response.MatchId + ']').after(newSubRow);
+        });
+
+
+      };
+
+
+
+
+
+      // How do I hide the modal after submitting???
+      // $(".exampleModal").modal("hide");
+
+
+
+    });
+  </script>
 
   <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
   <script type="text/javascript" src="js/members.js"></script>
