@@ -2,6 +2,8 @@ module.exports = function (sequelize, DataTypes) {
   var Match = sequelize.define("Match", {
     date: DataTypes.DATE,
     opponent: DataTypes.STRING,
+    homeScore: DataTypes.INTEGER,
+    awayScore: DataTypes.INTEGER,
     wl: DataTypes.STRING,
     netrtg: DataTypes.DECIMAL(5, 2),
     epp: DataTypes.DECIMAL(5, 2),

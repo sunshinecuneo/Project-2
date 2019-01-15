@@ -136,8 +136,8 @@ module.exports = function(app) {
     var pointTOTH = parseInt(req.body.h1) + parseInt(req.body.h2) + parseInt(req.body.h3) + parseInt(req.body.h4) + parseInt(req.body.h5);
 
     var netFinal = parseInt(pointTOTE) - parseInt(pointTOTH);
+       
 
-    
 
     db.Points.create({
       wl: resultUpper,
@@ -176,26 +176,24 @@ module.exports = function(app) {
       }).then(function(data) {
 
        var numPoints =  data.Points.length;
-        console.log("pointTOTE: ", pointTOTE);
-       //score
-        // var homeScore = 0;
-        // var awayScore = 0;
 
-        // if(result.wl == "W"){
-        //   homeScore++;
-
-        // }else{
-        //   awayScore++;
-        // }
-
+       var homeScore = 0;
+       var awayScore = 0;
+   
+       if(resultUpper == "W"){
+         homeScore++;
+   
+       }else{
+         awayScore++;
+       };
+       
  
  
 
-
-        
         //static values
 
-      
+       data.homeScore = data.homeScore + parseInt(homeScore);
+       data.awayScore = data.awayScore + parseInt(awayScore);
        data.tote = data.tote + pointTOTE;
        data.e1 = data.e1 + parseInt(req.body.e1);
        data.e2 = data.e2 + parseInt(req.body.e2);
@@ -234,6 +232,29 @@ module.exports = function(app) {
        data.opp = oppFinal;
        data.epp = eppFinal;
        data.netrtg = netrtg;
+
+       //w/l math
+
+       var matchResult = "W/L";
+
+       if(data.homeScore > data.awayScore) {
+         matchResult = "W"
+       } else if (data.homeScore == data.awayScore){
+         matchResult = "Tie"
+       } else {
+         matchResult = "L"
+       }
+
+      data.wl = matchResult
+
+
+
+       // score math
+
+
+        console.log("req.body", resultUpper);
+        console.log("Home", homeScore);
+        console.log("Away", awayScore);
 
 
 
