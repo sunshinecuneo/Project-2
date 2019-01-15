@@ -377,6 +377,8 @@
 
       $("#createPoint").click(function () {
         insertPoint(event);
+        location.reload();
+     
       
         // $.get('/api/matches', function(data){
         //   console.log(data[0]);
@@ -417,6 +419,7 @@
 
         // Gets Matches Rows
         $.get("/api/matches").then(function (response) {
+          $(".matchTable").empty();
 
           for (var i = 0; i < response.length; i++) {
 
@@ -426,8 +429,8 @@
             // tRow.attr("dbID", response.id)
             var dateTD = $("<th>").text(moment(response[i].date).format("MM/DD/YYYY"));
             var oppntTD = $("<th>").text(response[i].opponent);
-            var scoreTD = $("<td>").text("0-0");
-            var wlTD = $("<td>").text("N/A");
+            var scoreTD = $("<td>").text(response[i].homeScore + "-" + response[i].awayScore);
+            var wlTD = $("<td>").text(response[i].wl);
             var netrtgTD = $("<td>").text(response[i].netrtg);
             var eppTD = $("<td>").text(response[i].epp);
             var oppTD = $("<td>").text(response[i].opp);
@@ -544,7 +547,7 @@
           var tRow = $("<tr>").addClass("match");
           tRow.attr("dbID", response.id);
           var dateTD = $("<th>").text(moment(response.date).format("MM/DD/YYYY"));
-          var oppntTD = $("<td>").text(response.opponent);
+          var oppntTD = $("<th>").text(response.opponent);
           var scoreTD = $("<td>").text("0-0");
           var wlTD = $("<td>").text("N/A");
           var netrtgTD = $("<td>").text(0);
