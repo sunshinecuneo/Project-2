@@ -3,6 +3,9 @@
     var Points = sequelize.define("Points", {
         wl: DataTypes.STRING,
         match_id: DataTypes.STRING,
+        netrtg: DataTypes.DECIMAL(5, 2),
+        epp: DataTypes.DECIMAL(5, 2),
+        opp: DataTypes.DECIMAL(5, 2),
         tote: DataTypes.INTEGER,
         e1: DataTypes.INTEGER,
         e2: DataTypes.INTEGER,

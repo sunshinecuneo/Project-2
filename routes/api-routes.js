@@ -104,6 +104,9 @@ module.exports = function(app) {
     var pointResult = req.body.wl;
     var resultUpper = pointResult.toUpperCase();
 
+
+
+
     //elim total
     var pointTOTE = parseInt(req.body.e1) + parseInt(req.body.e2) + parseInt(req.body.e3) + parseInt(req.body.e4) + parseInt(req.body.e5);
     
@@ -111,9 +114,16 @@ module.exports = function(app) {
     //hit total
     var pointTOTH = parseInt(req.body.h1) + parseInt(req.body.h2) + parseInt(req.body.h3) + parseInt(req.body.h4) + parseInt(req.body.h5);
 
+    var netFinal = parseInt(pointTOTE) - parseInt(pointTOTH);
+
+    
+
     db.Points.create({
       wl: resultUpper,
       match_id: req.body.match_id,
+      netrtg: netFinal,
+      epp: pointTOTE,
+      opp: pointTOTH,
       tote: pointTOTE,
       e1: parseInt(req.body.e1),
       e2: parseInt(req.body.e2),
@@ -143,13 +153,28 @@ module.exports = function(app) {
         },
         include: [db.Points]
       }).then(function(data) {
-       var numPoints =  data.Points.length;
 
-       var epp = data.tote / numPoints;
-       var eppFinal = epp;
+       var numPoints =  data.Points.length;
+        console.log("pointTOTE: ", pointTOTE);
+       //score
+        // var homeScore = 0;
+        // var awayScore = 0;
+
+        // if(result.wl == "W"){
+        //   homeScore++;
+
+        // }else{
+        //   awayScore++;
+        // }
+
+ 
+ 
+
+
+        
+        //static values
 
       
-       data.epp = eppFinal;
        data.tote = data.tote + pointTOTE;
        data.e1 = data.e1 + parseInt(req.body.e1);
        data.e2 = data.e2 + parseInt(req.body.e2);
@@ -171,24 +196,26 @@ module.exports = function(app) {
        data.hom = data.hom + parseInt(req.body.hom);
        data.hbkr = data.hbkr + parseInt(req.body.hbkr);
 
-        
-       console.log("data", data);
-       console.log(data.tote);
-       console.log("tote", data.tote + typeof data.tote)
-       console.log("numpoints", numPoints + typeof numPoints);
-       console.log("epp type", epp + typeof epp);
+
+       //dynamic values
+
+       var epp = data.tote / numPoints;
+       var eppFinal = epp;
+
+       //opp
+       var opp = data.toth / numPoints;
+       var oppFinal = opp;
        
-       console.log("eppfinal");
-       console.log("eppfinal", eppFinal + typeof eppFinal);
-       console.log(data.tote);
-      // console.log("data", data);
-    
-      // console.log("epp type", typeof data.epp);
-      // console.log("tote", data.tote);
-      // console.log("numPoints: ", numPoints);
-      // console.log("numPoints type: ", typeof numPoints);
-      //  //stat line
-      //  data.epp = data.tote / numPoints;
+       //netrtg 
+       var netrtg = eppFinal - oppFinal;
+
+
+       data.opp = oppFinal;
+       data.epp = eppFinal;
+       data.netrtg = netrtg;
+
+
+
 
         return data;
       }).then(function(updatedData){
